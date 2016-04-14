@@ -1,3 +1,10 @@
+
+//
+// Taken from the project https://github.com/jck-d-rpr/react-horizontal-timeline which I would have used
+// directly, but the CSS import via css-loader is not functioning. If the author comes upon this - I'll
+// submit a PR soon! 
+//
+
 import $ from 'jquery';
 import React, { PropTypes, Component } from 'react';
 import { Motion, spring } from 'react-motion';

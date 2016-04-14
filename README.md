@@ -11,4 +11,4 @@
 ## Development
 
 Run the command `gulp`. Once everything has finished building, any changes you make to JS or CSS will automatically rebuild
-resources and relaunch the server (where appropriate)
+resources and relaunch the server (where appropriate). 
