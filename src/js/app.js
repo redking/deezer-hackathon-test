@@ -4,8 +4,9 @@ import ArtistTimeline from './components/ArtistTimeline';
 import fetch from 'isomorphic-fetch';
 
 // Initialise the map ..
-var width = document.getElementById('map').offsetWidth;
-var height = document.getElementById('map').offsetHeight;
+var map = document.getElementById('map');
+var width = map.offsetWidth;
+var height = map.offsetHeight;
 window.__map__ = new Datamap({
 	scope: 'world',
 	element: document.getElementById('map'),
@@ -13,10 +14,15 @@ window.__map__ = new Datamap({
 		popupOnHover: false,
 		highlightOnHover: false
 	},
+	fills: {
+		defaultFill: '#ABDDA4',
+		even: 'blue',
+		odd: 'red'
+	},
 	setProjection: function(element, options) {
 		var projection, path;
 		projection = d3.geo.mercator()
-			.translate([(width/2), (height/2)])
+			.translate([width / 2, height / 2])
 			.scale( 750 )
 			.center([2.351954, 48.875028]);
 
@@ -26,10 +32,12 @@ window.__map__ = new Datamap({
 			projection: projection
 		};
 	},
-	fills: {
-		defaultFill: '#ABDDA4',
-		even: 'blue',
-		odd: 'red'
+	done: function(datamap) {
+		datamap.svg.call(d3.behavior.zoom().on("zoom", redraw));
+
+		function redraw() {
+			datamap.svg.selectAll("g").attr("transform", "translate(" + d3.event.translate + ")scale(" + d3.event.scale + ")");
+		}
 	}
 });
 
