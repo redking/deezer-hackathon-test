@@ -1,0 +1,98 @@
+/* --------------------------------
+Main Components
+-------------------------------- */
+.cd-horizontal-timeline {
+	margin: 2em auto;
+}
+
+.cd-horizontal-timeline .timeline {
+	position: relative;
+	height: 100px;
+	width: 90%;
+	margin: 0 auto;
+}
+
+/* Hides the timeline overflow */
+.cd-horizontal-timeline .events-wrapper {
+	position: relative;
+	height: 100%;
+	margin: 0 40px;
+	overflow: hidden;
+}
+
+/* these are used to create a shadow effect at the sides of the timeline */
+.cd-horizontal-timeline .events-wrapper::after, .cd-horizontal-timeline .events-wrapper::before {
+	content: '';
+	position: absolute;
+	z-index: 2;
+	top: 0;
+	height: 100%;
+	width: 20px;
+}
+
+.cd-horizontal-timeline .events-wrapper::before {
+	left: 0;
+	background-image: linear-gradient(to right, #f8f8f8, rgba(248, 248, 248, 0));
+}
+.cd-horizontal-timeline .events-wrapper::after {
+	right: 0;
+	background-image: linear-gradient(to left, #f8f8f8, rgba(248, 248, 248, 0));
+}
+
+.cd-horizontal-timeline .events {
+	/* this is the grey line/timeline */
+	position: absolute;
+	z-index: 1;
+	left: 0;
+	top: 49px;
+	height: 2px;
+	/* width will be set using JavaScript */
+	background: #dfdfdf;
+}
+
+.cd-horizontal-timeline .filling-line {
+	/* this is used to create the green line filling the timeline */
+	position: absolute;
+	z-index: 1;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: 100%;
+
+	-webkit-transform-origin: left center;
+	-moz-transform-origin: left center;
+	-ms-transform-origin: left center;
+	-o-transform-origin: left center;
+	transform-origin: left center;
+}
+
+.cd-horizontal-timeline .events a {
+	position: absolute;
+	bottom: 0;
+	z-index: 2;
+	text-align: center;
+	font-size: 1.3rem;
+	padding-bottom: 15px;
+	color: #383838;
+}
+
+.cd-timeline-navigation a {
+	/* these are the left/right arrows to navigate the timeline */
+	position: absolute;
+	z-index: 1;
+	top: 50%;
+	bottom: auto;
+	-webkit-transform: translateY(-50%);
+	-moz-transform: translateY(-50%);
+	-ms-transform: translateY(-50%);
+	-o-transform: translateY(-50%);
+	transform: translateY(-50%);
+	height: 34px;
+	width: 34px;
+	border-radius: 50%;
+	border: 2px solid #dfdfdf;
+	/* replace text with an icon */
+	overflow: hidden;
+	text-indent: 100%;
+	white-space: nowrap;
+}

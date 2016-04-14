@@ -1,0 +1,8 @@
+node_modules
+.idea
+.tmp/*
+.DS_Store
+npm-debug.log
+newrelic_agent.log
+public/*
+rev-manifest.json

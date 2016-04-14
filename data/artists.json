@@ -1,0 +1,118 @@
+{
+  "name": "Boards of Canada",
+  "timeline": {
+    "2016-01-01": [
+      {
+        "user": "Franck",
+        "town": "Paris",
+        "country": "FR",
+        "latitude": 48.8534100,
+        "longitude": 2.3488000
+      },
+      {
+        "user": "Céline",
+        "town": "Limoges",
+        "country": "FR",
+        "latitude": 45.8315300,
+        "longitude": 1.2578000
+      }
+    ],
+    "2016-01-02": [
+      {
+        "user": "Cormac",
+        "town": "Dundalk",
+        "country": "IE",
+        "latitude": 53.9979,
+        "longitude": -6.406
+      },
+      {
+        "user": "Karine",
+        "town": "Aulnay-sous-bois",
+        "country": "FR",
+        "latitude": 48.9412151,
+        "longitude": 2.4970711
+      }
+    ],
+    "2016-01-03": [
+      {
+        "user": "David",
+        "town": "Dublin",
+        "country": "IE",
+        "latitude": 53.3441,
+        "longitude": -6.2675
+      },
+      {
+        "user": "Brian",
+        "town": "Dublin",
+        "country": "IE",
+        "latitude": 53.4557,
+        "longitude": -6.2197
+      },
+      {
+        "user": "Colin",
+        "town": "Noisy-le-grand",
+        "country": "FR",
+        "latitude": 48.8485,
+        "longitude": 2.5526
+      },
+      {
+        "user": "Yannick",
+        "town": "Bouville",
+        "country": "FR",
+        "latitude": 48.431671,
+        "longitude": 2.275004
+      }
+    ],
+    "2016-01-04": [
+      {
+        "user": "Mary",
+        "town": "Belfast",
+        "country": "IE",
+        "latitude": 54.5972,
+        "longitude": -5.9301
+      },
+      {
+        "user": "Grainne",
+        "town": "Cork",
+        "country": "IE",
+        "latitude": 51.8979,
+        "longitude": -8.4711
+      },
+      {
+        "user": "Mike",
+        "town": "London",
+        "country": "UK",
+        "latitude": 51.5073,
+        "longitude": -0.1277
+      },
+      {
+        "user": "Pedro",
+        "town": "Barcelona",
+        "country": "ES",
+        "latitude": 41.3851,
+        "longitude": 2.1734
+      },
+      {
+        "user": "Juliette",
+        "town": "Marseilles",
+        "country": "FR",
+        "latitude": 43.2965,
+        "longitude": 5.3698
+      },
+      {
+        "user": "Sandrine",
+        "town": "Nice",
+        "country": "FR",
+        "latitude": 43.696,
+        "longitude": 7.2656
+      },
+      {
+        "user": "Ronan",
+        "town": "Brest",
+        "country": "FR",
+        "latitude": 48.3904,
+        "longitude": -4.4861
+      }
+    ]
+  }
+}
