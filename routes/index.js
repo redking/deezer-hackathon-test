@@ -2,7 +2,10 @@
 
 var express = require('express');
 var url = require('url');
-var artists = require('../data/artists.json');
+var fetch = require('isomorphic-fetch');
+
+var streams = require('../data/streams.json');
+
 
 var router = express.Router();
 
@@ -14,7 +17,13 @@ router.get('/', function(req, res) {
 
 /* GET labels XHR endpoint*/
 router.get('/artists', function(req, res) {
-	res.json(artists);
+	/*fetch('http://localhost:8000/sdfdsf')
+		.then(function(res) { return res.json(); })
+		.then(function(result) {
+			res.json(result);
+		});
+	*/
+	res.json(streams);
 });
 
 module.exports = router;

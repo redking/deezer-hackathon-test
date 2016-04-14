@@ -1,5 +1,28 @@
 @import 'timeline';
 
+/**
+http://www.gitgub.com/redking
+
+              /((((((\\\\
+      =======((((((((((\\\\\
+           ((           \\\\\\\
+           ( (*    _/      \\\\\\\
+             \    /  \      \\\\\\________________
+              |  |   |       </                  ((\\\\
+              o_|   /        /                      \ \\\\    \\\\\\\
+                   |  ._    (                        \ \\\\\\\\\\\\\\\\
+                   | /                       /       /    \\\\\\\     \\
+           .______/\/     /                 /       /         \\\
+          / __.____/    _/         ________(       /\
+         / / / ________/`---------'         \     /  \_
+        / /  \ \                             \   \ \_  \
+       ( <    \ \                             >  /    \ \
+        \/      \\_                          / /       > )
+                 \_|                        / /       / /
+                                          _//       _//
+                                         /_|       /_|
+**/
+
 body {
   color: #383838;
   font-family: 'Montserrat', sans-serif;
@@ -18,7 +41,21 @@ h1 {
   text-align: center;
 }
 
-#map svg {
-  border: 1px solid #ccc;
-  box-shadow: 1px 1px 5px #ccc;
+#map {
+  svg {
+	border: 1px solid #ccc;
+	box-shadow: 1px 1px 5px #ccc;
+  }
+
+  .datamaps-bubble:hover {
+	cursor: hand;
+  }
+}
+
+.hoverinfo {
+  radius: 2px;
+
+  td {
+	vertical-align: middle;
+  }
 }

@@ -39,8 +39,7 @@ module.exports = function (app) {
     // Respond to HTML requests
     if (req.accepts('html')) {
       return res.render('errors/500', {
-        title: '500 Error',
-        layout: 'layouts/basic'
+        title: '500 Error'
       });
     }
 

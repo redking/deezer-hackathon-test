@@ -7,17 +7,21 @@ import fetch from 'isomorphic-fetch';
 var map = document.getElementById('map');
 var width = map.offsetWidth;
 var height = map.offsetHeight;
+
 window.__map__ = new Datamap({
 	scope: 'world',
-	element: document.getElementById('map'),
+	element: map,
 	geographyConfig: {
 		popupOnHover: false,
 		highlightOnHover: false
 	},
 	fills: {
 		defaultFill: '#ABDDA4',
-		even: 'blue',
-		odd: 'red'
+		red: '#FF0000',
+		yellow: '#FFED00',
+		pink: '#FF0092',
+		green: '#C2FF00',
+		blue: '#00c7f2'
 	},
 	setProjection: function(element, options) {
 		var projection, path;
