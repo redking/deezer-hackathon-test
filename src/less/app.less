@@ -38,6 +38,14 @@ a {
 }
 
 h1 {
+  font-size: 42px;
+}
+
+h2 {
+  font-size: 26px;
+}
+
+h1, h2 {
   text-align: center;
 }
 
@@ -67,4 +75,28 @@ h1 {
   td {
 	vertical-align: middle;
   }
+}
+
+@-webkit-keyframes pulse {
+  0% {
+	-webkit-transform: scale(1.1);
+  }
+  50% {
+	-webkit-transform: scale(0.8);
+  }
+  100% {
+	-webkit-transform: scale(1);
+  }
+}
+
+.heart-container {
+  display: inline-block;
+}
+
+.beat {
+  -webkit-animation: pulse 1s linear infinite;
+}
+
+.fa-heartbeat {
+  color: red;
 }

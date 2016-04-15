@@ -6,7 +6,7 @@ import classnames from 'classnames';
 const MIN_BUBBLE_RADIUS = 3;
 const MAX_BUBBLE_RADIUS = 30;
 
-const INTERVAL = 1000; // ms
+const INTERVAL = 500; // ms
 
 class StreamsMap extends Component {
 
@@ -38,12 +38,11 @@ class StreamsMap extends Component {
 		// Map bubbles
 		window.__map__.bubbles(this.state.bubbles, {
 			popupTemplate: function(geo, data) {
+				const str = data.nbStreams === 1 ? 'stream' : 'streams';
 				return `
-					<table class="hoverinfo">
-						<tr>
-							<td>${data.town} - ${data.nbStreams} streams</td>
-						</tr>
-					</table>
+					<div class="hoverinfo">
+						<i class="fa fa-globe"></i> ${data.town} - ${data.nbStreams + ' ' + str}
+					</div>
 				`;
 			}
 		});
@@ -65,14 +64,15 @@ class StreamsMap extends Component {
 			invisible: playing || !bubbles.length
 		});
 
-		const spinnerClasses = classnames({
-			'fa fa-spinner fa-pulse fa-fw margin-bottom': true,
-			'invisible': !playing
+		const heartClasses = classnames({
+			'heart-container': true,
+			beat: playing
 		});
 
 		return (
 			<div>
-				<h1>Timeline for artist: {name}</h1>
+				<h1><span className={heartClasses}><i className="fa fa-heartbeat"></i></span> Deezer Pandemic</h1>
+				<h2>Timeline for artist: {name}</h2>
 				<div className="controls center-container clearfix">
 					<ul className="list-inline pull-left">
 						<li className={stopClasses}>
@@ -91,7 +91,8 @@ class StreamsMap extends Component {
 							</a>
 						</li>
 					</ul>
-					<span className="pull-right"><i className={spinnerClasses}></i> {currentDate}</span>
+					{currentDate ?
+					<span className="pull-right"><i className="fa fa-clock-o"></i> {currentDate}</span> : null}
 				</div>
 				<div className="center-container clearfix">
 					<div ref="map" id="map"></div>
@@ -168,12 +169,15 @@ class StreamsMap extends Component {
 		fetch('http://localhost:3000/getStreams?artistId=' + artistId + '&date=' + currentDate)
 			.then(res => res.json())
 			.then(streams => {
-				this._fetching = false;
-				this._prepareData(currentDate, streams);
+				const state = this._prepareState(currentDate, streams);
+				setTimeout(() => {
+					this._fetching = false;
+					this.setState(state);
+				}, 0);
 			});
 	}
 
-	_prepareData(currentDate, streams) {
+	_prepareState(currentDate, streams) {
 		let dataByTown = (this.state.runningTotal) ? Object.assign({}, this.state.dataByTown) : {};
 		let max = (this.state.runningTotal) ? this.props.cumulativeMax : this.props.max;
 		const { bubbleColors } = this.props;
@@ -182,10 +186,11 @@ class StreamsMap extends Component {
 		streams.forEach((stream) => {
 			const town = stream.town;
 			if (dataByTown[town]) {
-				dataByTown[town].nb_streams += stream.nb_streams;
+				dataByTown[town].nb_streams += Number(stream.nb_streams);
 			} else {
 				dataByTown[town] = {
-					...stream
+					...stream,
+					nb_streams: Number(stream.nb_streams)
 				};
 			}
 		});
@@ -201,23 +206,23 @@ class StreamsMap extends Component {
 				longitude: townData.longitude,
 				town: townData.town,
 				nbStreams: townData.nb_streams,
-				radius: Math.max(MAX_BUBBLE_RADIUS * (townData.nb_streams / max), MIN_BUBBLE_RADIUS),
+				radius: Math.max(MAX_BUBBLE_RADIUS * (Math.log(townData.nb_streams) / Math.log(max)), MIN_BUBBLE_RADIUS),
 				borderWidth: 2,
 				borderColor: 'black',
 				fillKey: bubbleColors[(bubbleColorCount++) % 5]
 			});
 		});
 
-		this.setState({
+		return {
 			currentDate,
 			bubbles,
 			dataByTown
-		});
+		};
 	}
 
 	_incrementDate(date) {
 		let result = new Date(date);
-		result.setDate(result.getDate() + this.props.step);
+		result = new Date(result.setTime(result.getTime() + this.props.step * 86400000));
 		return result.toISOString().substring(0, 10);
 	}
 
