@@ -97,7 +97,7 @@ class StreamsMap extends Component {
 				<div className="center-container clearfix">
 					<div ref="map" id="map"></div>
 				</div>
-				<div className="center-container clearfix">
+				<div className="center-container clearfix running-total-container">
 					<div className="pull-right">
 						<label for="runningTotal">Running total&nbsp;
 							<input type="checkbox" id="runningTotal" disabled={playing} checked={runningTotal} onChange={this._setRunningTotal} />
