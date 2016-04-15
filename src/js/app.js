@@ -3,16 +3,17 @@ import ReactDOM from 'react-dom';
 import StreamsMap from './components/StreamsMap';
 import fetch from 'isomorphic-fetch';
 
+const NAME = 'Jul';
 const ARTIST_ID = 123;
+const MAX_STREAM_COUNT = 300;
 
-fetch('http://localhost:3000/initForArtist?artistId=' + ARTIST_ID)
-	.then(res => res.json())
-	.then(data => {
-		const container = document.getElementById('container');
-		const { name, dates, max } = data;
+const START_DATE = '2016-01-01';
+const END_DATE = '2016-01-05';
+const DAY_STEP = 1; // days
 
-		ReactDOM.render(<StreamsMap name={name} dates={dates} max={max} artistId={ARTIST_ID} />, container);
-	});
+ReactDOM.render(
+	<StreamsMap name={NAME} start={START_DATE} end={END_DATE} step={DAY_STEP} max={MAX_STREAM_COUNT} artistId={ARTIST_ID} />,
+	document.getElementById('container'));
 
 // Initialise the map ..
 const map = document.getElementById('map');

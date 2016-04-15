@@ -76,10 +76,10 @@ class StreamsMap extends Component {
 		);
 	}
 
-	_counter = 0;
 	_fetching = false;
 
-	_play() {
+	_play(e) {
+		e.preventDefault();
 		this.setState({
 			playing: true
 		});
@@ -89,7 +89,11 @@ class StreamsMap extends Component {
 		}, INTERVAL);
 	}
 
-	_stop() {
+	_stop(e) {
+		if (e) {
+			e.preventDefault();
+		}
+
 		this.setState({
 			playing: false
 		});
@@ -97,9 +101,9 @@ class StreamsMap extends Component {
 	}
 
 	_init() {
-		this._counter = 0;
 		this._fetching = false;
 		this.setState({
+			currentDate: undefined,
 			dataByTown: {}
 		});
 	}
@@ -109,16 +113,16 @@ class StreamsMap extends Component {
 			return;
 		}
 
-		const { dates, artistId } = this.props;
+		const { artistId } = this.props;
+		const currentDate = this.state.currentDate ? this._incrementDate(this.state.currentDate) : this.props.start;
 
-		if (this._counter >= this.props.dates.length) {
+		if (currentDate === this._incrementDate(this.props.end, 1)) {
 			this._stop();
 			this._init();
 			return;
 		}
 
 		this._fetching = true;
-		const currentDate = dates[this._counter++];
 		fetch('http://localhost:3000/getStreams?artistId=' + artistId + '&date=' + currentDate)
 			.then(res => res.json())
 			.then(streams => {
@@ -163,8 +167,16 @@ class StreamsMap extends Component {
 		});
 
 		this.setState({
-			currentDate, bubbles, dataByTown
+			currentDate,
+			bubbles,
+			dataByTown
 		});
+	}
+
+	_incrementDate(date) {
+		let result = new Date(date);
+		result.setDate(result.getDate() + this.props.step);
+		return result.toISOString().substring(0, 10);
 	}
 }
 
