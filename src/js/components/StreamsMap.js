@@ -24,8 +24,9 @@ class StreamsMap extends Component {
 
 		this.state = {
 			playing: false,
-			dataByTown: {},
 			runningTotal: false,
+			dataByTown: {},
+			colorsByTown: {},
 			bubbles: []
 		};
 	}
@@ -179,6 +180,7 @@ class StreamsMap extends Component {
 
 	_prepareState(currentDate, streams) {
 		let dataByTown = (this.state.runningTotal) ? Object.assign({}, this.state.dataByTown) : {};
+		let colorsByTown = this.state.colorsByTown;
 		let max = (this.state.runningTotal) ? this.props.cumulativeMax : this.props.max;
 		const { bubbleColors } = this.props;
 		let bubbles = [];
@@ -192,9 +194,12 @@ class StreamsMap extends Component {
 			} else {
 				dataByTown[town] = {
 					...stream,
-					fillKey: bubbleColors[(bubbleColorCount++) % 5],
 					nb_streams: Number(stream.nb_streams)
 				};
+			}
+
+			if (!colorsByTown[town]) {
+				colorsByTown[town] = bubbleColors[(bubbleColorCount++) % 5];
 			}
 		});
 
@@ -210,14 +215,15 @@ class StreamsMap extends Component {
 				radius: Math.max(MAX_BUBBLE_RADIUS * (Math.log(townData.nb_streams) / Math.log(max)), MIN_BUBBLE_RADIUS),
 				borderWidth: 2,
 				borderColor: 'black',
-				fillKey: townData.fillKey
+				fillKey: colorsByTown[key]
 			});
 		});
 
 		return {
 			currentDate,
 			bubbles,
-			dataByTown
+			dataByTown,
+			colorsByTown
 		};
 	}
 
