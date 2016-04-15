@@ -6,7 +6,7 @@ import classnames from 'classnames';
 const MIN_BUBBLE_RADIUS = 3;
 const MAX_BUBBLE_RADIUS = 30;
 
-const INTERVAL = 500; // ms
+const INTERVAL = 1000; // ms
 
 class StreamsMap extends Component {
 
@@ -72,7 +72,7 @@ class StreamsMap extends Component {
 		return (
 			<div>
 				<h1><span className={heartClasses}><i className="fa fa-heartbeat"></i></span> Deezer Pandemic</h1>
-				<h2>Timeline for artist: {name}</h2>
+				<h2>Streams for artist: {name}</h2>
 				<div className="controls center-container clearfix">
 					<ul className="list-inline pull-left">
 						<li className={stopClasses}>
@@ -181,6 +181,8 @@ class StreamsMap extends Component {
 		let dataByTown = (this.state.runningTotal) ? Object.assign({}, this.state.dataByTown) : {};
 		let max = (this.state.runningTotal) ? this.props.cumulativeMax : this.props.max;
 		const { bubbleColors } = this.props;
+		let bubbles = [];
+		let bubbleColorCount = 0;
 
 		// Prepare data by town
 		streams.forEach((stream) => {
@@ -190,12 +192,11 @@ class StreamsMap extends Component {
 			} else {
 				dataByTown[town] = {
 					...stream,
+					fillKey: bubbleColors[(bubbleColorCount++) % 5],
 					nb_streams: Number(stream.nb_streams)
 				};
 			}
 		});
-		let bubbles = [];
-		let bubbleColorCount = 0;
 
 		// Prepare bubbles
 		const townKeys = Object.keys(dataByTown);
@@ -209,7 +210,7 @@ class StreamsMap extends Component {
 				radius: Math.max(MAX_BUBBLE_RADIUS * (Math.log(townData.nb_streams) / Math.log(max)), MIN_BUBBLE_RADIUS),
 				borderWidth: 2,
 				borderColor: 'black',
-				fillKey: bubbleColors[(bubbleColorCount++) % 5]
+				fillKey: townData.fillKey
 			});
 		});
 
