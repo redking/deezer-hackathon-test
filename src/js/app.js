@@ -1,12 +1,23 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ArtistTimeline from './components/ArtistTimeline';
+import StreamsMap from './components/StreamsMap';
 import fetch from 'isomorphic-fetch';
 
+const ARTIST_ID = 123;
+
+fetch('http://localhost:3000/initForArtist?artistId=' + ARTIST_ID)
+	.then(res => res.json())
+	.then(data => {
+		const container = document.getElementById('container');
+		const { name, dates, max } = data;
+
+		ReactDOM.render(<StreamsMap name={name} dates={dates} max={max} artistId={ARTIST_ID} />, container);
+	});
+
 // Initialise the map ..
-var map = document.getElementById('map');
-var width = map.offsetWidth;
-var height = map.offsetHeight;
+const map = document.getElementById('map');
+const width = map.offsetWidth;
+const height = map.offsetHeight;
 
 window.__map__ = new Datamap({
 	scope: 'world',
@@ -24,7 +35,7 @@ window.__map__ = new Datamap({
 		blue: '#00c7f2'
 	},
 	setProjection: function(element, options) {
-		var projection, path;
+		let projection, path;
 		projection = d3.geo.mercator()
 			.translate([width / 2, height / 2])
 			.scale( 750 )
@@ -44,9 +55,3 @@ window.__map__ = new Datamap({
 		}
 	}
 });
-
-fetch('http://localhost:3000/artists')
-	.then(res => res.json())
-	.then(artist => {
-		ReactDOM.render(<ArtistTimeline artist={artist} />, document.getElementById('container'));
-	});

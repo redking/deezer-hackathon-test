@@ -1,13 +1,10 @@
 {
-   "compact":false,
+   "compact":true,
    "comments":false,
    "presets":[
       "es2015",
       "stage-0",
       "react"
-   ],
-   "plugins": [
-      ["transform-decorators-legacy"]
    ],
    "ignore":"node_modules/**"
 }
